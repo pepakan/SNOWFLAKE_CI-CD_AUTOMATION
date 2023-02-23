@@ -10,7 +10,7 @@ terraform {
     organization = "EvelynPrototype"
 
     workspaces {
-      name = "gh-actions-demo"
+      name = "workspace_1"
     }
   }
 }
