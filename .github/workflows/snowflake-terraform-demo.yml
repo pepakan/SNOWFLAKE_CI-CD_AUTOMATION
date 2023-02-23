@@ -9,6 +9,9 @@ jobs:
   snowflake-terraform-demo:
     name: "Snowflake Terraform Demo Job"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workspaces: [./workspace_1]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,6 +27,7 @@ jobs:
 
       - name: Terraform Init
         id: init
+        working-directory: ${{matrix.workspaces}}
         run: terraform init
 
       - name: Terraform Validate
@@ -31,5 +35,6 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        id: apply
+        working-directory: ${{matrix.workspaces}}
+        if: github-ref == 'ref/heads/main' && github.eventname == 'push'
         run: terraform apply -auto-approve
