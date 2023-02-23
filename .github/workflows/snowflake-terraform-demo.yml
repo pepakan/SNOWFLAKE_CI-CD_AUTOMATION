@@ -36,5 +36,5 @@ jobs:
 
       - name: Terraform Apply
         working-directory: ${{matrix.workspaces}}
-        if: github-ref == 'ref/heads/main' && github.eventname == 'push'
+        if: github.ref == 'ref/heads/main' && github.eventname == 'push'
         run: terraform apply -auto-approve
